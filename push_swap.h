@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:03 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/05 22:23:25 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/06 21:32:10 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_stack *new_node(int data);
 void	add_node(t_stack **stack, t_stack *node);
 void	free_stack(t_stack **stack);
 int		stack_size(t_stack **stack);
+void	init_stack(t_stack **stack, char *str);
 
 void	push(t_stack **stack1, t_stack **stack2);
 void	rotate(t_stack **stack);

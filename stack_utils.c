@@ -69,3 +69,22 @@ int	stack_size(t_stack	**stack)
 	}
 	return (size);
 }
+
+void	init_stack(t_stack **stack, char *str)
+{
+	char	**splited;
+	int		i;
+	int		data;
+
+	i = 0;
+	if (!str || !stack)
+		return ;
+	splited = ft_split(str, ' ');
+	while (splited[i])
+	{
+		data = ft_atoi(splited[i]);
+		add_node(stack, new_node(data));
+		i++;
+	}
+	free_pt(splited, i);
+}

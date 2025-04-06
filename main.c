@@ -6,30 +6,11 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:08 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/06 01:42:42 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/06 21:31:13 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	push_to_stack(t_stack **stack, char *str)
-{
-	char	**splited;
-	int		i;
-	int		data;
-
-	i = 0;
-	if (!str || !stack)
-		return ;
-	splited = ft_split(str, ' ');
-	while (splited[i])
-	{
-		data = ft_atoi(splited[i]);
-		add_node(stack, new_node(data));
-		i++;
-	}
-	free_pt(splited, i);
-}
 
 t_stack	*last_node(t_stack *stack)
 {
@@ -45,47 +26,82 @@ t_stack	*last_node(t_stack *stack)
 	return (tmp);
 }
 
-int	cost(t_stack **stack, int val)
+int	count_cost(t_stack **stack, int val)
 {
 	int		cost;	
+	int		i;
+	t_stack	*tmp;
 	
-	return (cost);
+	tmp = *stack;
+	cost = 0;
+	while (tmp)
+	{
+		if (tmp->data == val)
+			break ;
+		i++;
+		tmp = tmp->next;
+	}
+	if (i < stack_size(stack) / 2)
+		cost = i;
+	else
+		cost = stack_size(stack) - i;
+	return (cost + 1);
 }
 
-void	shi7aja(t_stack **stack_a, t_stack **stack_b)
+int	cost_b(t_stack **stack_b, int val)
 {
-	t_stack	*tmp_a;
 	t_stack	*curr_b;
 	t_stack	*prev_b;
 	int		min_cost;
+
+	prev_b = last_node(stack_b);
+	curr_b = *stack_b;
+	min_cost = stack_size(stack_a) + stack_size(stack_b);
+	while (curr_b)
+	{
+		if (val <= prev_b->data && val >= curr_b->data)
+		{
+			if (min_cost > cost(stack_a, val) + cost(stack_b, curr_b->data))
+			{
+				min_cost = cost(stack_a, val) + cost(stack_b, curr_b->data);
+				index = i;			
+			}
+		}
+		prev_b = curr_b;
+		curr_b = curr_b->next;
+		i++;
+		tmp_a = tmp_a->next;
+	}
+}
+
+int	find_node_index(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*tmp_a;
 	int		index;
-	
+	int		i;
 	
 	if (!stack_a || !*stack_a)
 		return ;
 	index = 0;
-	min_cost = stack_size(stack_a) + stack_size(stack_b);
 	tmp_a = *stack_a;
-	prev_b = last_node(stack_b);
 	while(tmp_a)
 	{
-		curr_b = *stack_b;
-		while (curr_b)
-		{
-			if (tmp_a->data <= prev_b->data && tmp_a->data >= curr_b->data)
-			{
-				if (min_cost > cost(stack_a, stack_b, ))
-				{
-					min_cost
-				}
-			}
-			prev_b = curr_b;
-			curr_b = curr_b->next;
-		}
-		index++;
-		tmp_a = tmp_a->next;
 	}
+	return (index);
 }
+void	moves(t_stack **stack_a, t_stack **stack_b)
+{
+	int		i;
+	t_stack	*tmp_a;
+	t_stack	*tmp_b;
+
+	i = find_node(stack_a, stack_b);
+	tmp_a = *stack_a;
+	tmp_b = *stack_b;
+	while 
+}
+
+
 int main(int ac, char **av)
 {
 	int		i;
