@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   stack_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: meowy <meowy@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/02 15:45:39 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/02 18:41:19 by meowy            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*new_node(void	*data)
+t_stack	*new_node(int data)
 {
 	t_stack	*stack;
 	
@@ -24,7 +13,7 @@ t_stack	*new_node(void	*data)
 	return (stack);
 }
 
-void	push(t_stack **stack, t_stack *node)
+void	add_node(t_stack **stack, t_stack *node)
 {
 	t_stack	*tmp;
 
@@ -35,7 +24,7 @@ void	push(t_stack **stack, t_stack *node)
 		*stack = node;
 		return ;
 	}
-	tmp = *stack;
+	tmp = *stack;	
 	while (tmp)
 	{
 		if (!tmp->next)
@@ -47,8 +36,36 @@ void	push(t_stack **stack, t_stack *node)
 	}
 }
 
-// void	pop(t_stack **stack , void *data)
-// {
+void	free_stack(t_stack **stack)
+{
+	t_stack	*curr;
+	t_stack *pre;
 
-	
-// }
+	if (!stack)
+		return ;
+	curr = *stack;
+	while (curr)
+	{
+		pre = curr;
+		curr = curr->next;
+		free (pre);	
+	}
+	*stack = NULL;
+}
+
+int	stack_size(t_stack	**stack)
+{
+	t_stack	*tmp;
+	int		size;
+
+	if (!stack || !*stack)
+		return (0);
+	size = 0;
+	tmp = *stack;
+	while (tmp)
+	{
+		size++;
+		tmp = tmp->next;	
+	}
+	return (size);
+}

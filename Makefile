@@ -1,19 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: meowy <meowy@student.42.fr>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/01 16:34:14 by meowy             #+#    #+#              #
-#    Updated: 2025/04/02 18:36:59 by meowy            ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 CC = cc
-CFLAGS = -Wall #-Wextra -Werror# -g
+CFLAGS = -Wall -Wextra -g# -Werror -g
+BIN_DIR=bin
 SRCS := $(wildcard *.c)
-OBJS := $(SRCS:.c=.o)
+OBJS := $(patsubst %.c, $(BIN_DIR)/%.o, $(SRCS))
 
 NAME = push_swap
 
@@ -21,14 +10,20 @@ DEP = push_swap.h
 
 all : $(NAME)
 
-%.o: %.c $(DEP)
+debug:CFLAGS+=-g
+debug: re
+
+$(BIN_DIR)/%.o: %.c $(DEP) | $(BIN_DIR)
 	$(CC) -c $(CFLAGS) $< -o $@
 	
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
 clean: 
-	rm -rf $(OBJS)
+	rm -rf $(BIN_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
@@ -37,3 +32,4 @@ re: fclean $(NAME)
 
 .PHONY:
 	all clean fclean re
+.SECONDARY:

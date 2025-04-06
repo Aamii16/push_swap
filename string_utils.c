@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:19 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/03 20:40:44 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/05 16:29:37 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 
 	src_size = 0;
 	while (src[src_size])
-		src_size++;
+			src_size++;
 	i = 0;
 	if (!size)
 		return (src_size);
@@ -61,10 +61,5 @@ int	ft_atoi(char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		num = num * 10 + (str[i++] - 48);
-	if (str[i] != '\0')
-	{
-		put_error("Error\n");
-		exit(0);
-	}
 	return (num * sign);
 }
