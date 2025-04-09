@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:08 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/06 21:31:13 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/09 02:09:15 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,81 +26,103 @@ t_stack	*last_node(t_stack *stack)
 	return (tmp);
 }
 
-int	count_cost(t_stack **stack, int val)
+int	find_target_cost(t_stack **to, int val, int *index)
 {
-	int		cost;	
-	int		i;
-	t_stack	*tmp;
+	t_stack	*curr;
+	t_stack	*prev;
+	int		found;
+
+	found = 0;
+	curr = *to;
+	prev = last_node(*to);
+	*index = 0;
+	while (curr)
+	{
+		if (curr->data <= val && prev->data >= val)
+		{
+			found = 1;	
+			break ;
+		}
+		prev = curr;
+		curr = curr->next;
+		(*index)++;
+	}
+	if ((*index) > stack_size(to) / 2)
+		return (stack_size(to) - *index + 1);
+	else
+		return (*index + 1);
 	
-	tmp = *stack;
-	cost = 0;
+}
+
+t_stack	*find_node(t_stack **from, t_stack **to, int *indexF, int *indexT)
+{
+	t_stack	*tmp;
+	t_stack	*best;
+	int		min_cost;
+	int		i;
+
+	i = 0;
+	min_cost = stack_size(from) + stack_size(to);
+	tmp = *from;
 	while (tmp)
 	{
-		if (tmp->data == val)
-			break ;
+		if (min_cost > i + find_target_cost(to, tmp->data, indexT))
+		{
+			min_cost = i + find_target_cost(to, tmp->data, indexT);
+			*indexF = i;
+			best = tmp;
+		}
 		i++;
 		tmp = tmp->next;
 	}
-	if (i < stack_size(stack) / 2)
-		cost = i;
-	else
-		cost = stack_size(stack) - i;
-	return (cost + 1);
+	return (best);
 }
-
-int	cost_b(t_stack **stack_b, int val)
 {
-	t_stack	*curr_b;
-	t_stack	*prev_b;
-	int		min_cost;
-
-	prev_b = last_node(stack_b);
-	curr_b = *stack_b;
-	min_cost = stack_size(stack_a) + stack_size(stack_b);
-	while (curr_b)
-	{
-		if (val <= prev_b->data && val >= curr_b->data)
-		{
-			if (min_cost > cost(stack_a, val) + cost(stack_b, curr_b->data))
-			{
-				min_cost = cost(stack_a, val) + cost(stack_b, curr_b->data);
-				index = i;			
-			}
-		}
-		prev_b = curr_b;
-		curr_b = curr_b->next;
-		i++;
-		tmp_a = tmp_a->next;
-	}
-}
-
-int	find_node_index(t_stack **stack_a, t_stack **stack_b)
-{
-	t_stack	*tmp_a;
+	t_stack	*curr;
 	int		index;
-	int		i;
-	
-	if (!stack_a || !*stack_a)
-		return ;
+	int		max;
+
+	if (!to || !*to)
+		return (0);
+	curr = *to;
+	max = curr->data;
 	index = 0;
-	tmp_a = *stack_a;
-	while(tmp_a)
+	while (curr)
 	{
+		if (curr->data > max)
+		{
+			max = curr->data;
+			index++;
+		}
+		curr = curr->next;	
 	}
 	return (index);
 }
-void	moves(t_stack **stack_a, t_stack **stack_b)
+
+void	moves(t_stack **from, t_stack **to)
 {
-	int		i;
-	t_stack	*tmp_a;
-	t_stack	*tmp_b;
+	t_stack	*tmpFrom;
+	t_stack	*tmpTo;
+	t_stack	*best;
+	int		indexF;
+	int		indexT;
 
-	i = find_node(stack_a, stack_b);
-	tmp_a = *stack_a;
-	tmp_b = *stack_b;
-	while 
+	best = find_node(from , to, &indexF, &indexT);
+	if (indexF > stack_size(from) / 2 && indexT > stack_size(to) / 2)
+		do_rrr(from, to, indexF, indexT);
+	else if (indexF < stack_size(from) / 2 && indexT < stack_size(to) / 2)
+		do_rr(from, to, indexF, indexT);
+	else if (indexF < stack_size(from))
+		do_ra(from, indexF);
+	else if ((indexF > stack_size(from)))
+		do_rra(from, indexF);
+	else if (indexT < stack_size(from))
+		do_rb(from, indexF);
+	else
+		do_rrb(from, indexF);
+	push(from, to);
+	write(1, "pb\n", 3);
 }
-
 
 int main(int ac, char **av)
 {
@@ -117,21 +139,21 @@ int main(int ac, char **av)
 	{
 		//if (!check_argument(av[i]))
 			//return (put_error("Error ch7aja\n"), -1); // fix this nigga
-		push_to_stack(&stack_a, av[i]);
+		init_stack(&stack_a, av[i]);
 		i++;
 	}
 	t_stack *stack_b;
 	stack_b = NULL;
-	push_to_stack(&stack_b, "6 7 8 9 10");
 	t_stack *tmp;
-	
 	push(&stack_a, &stack_b);
+	push(&stack_a, &stack_b);
+	moves(&stack_a, &stack_b);
 	tmp = stack_b;
 	if (tmp)
 	{
 		while (tmp)
 		{
-			printf("%d\n", (int)(long)(tmp->data));
+			printf("%d\n", (tmp->data));
 			tmp = tmp->next;
 		}	
 	}

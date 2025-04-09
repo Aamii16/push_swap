@@ -67,7 +67,7 @@ int	stack_size(t_stack	**stack)
 		size++;
 		tmp = tmp->next;	
 	}
-	return (size);
+	return (size);	
 }
 
 void	init_stack(t_stack **stack, char *str)

@@ -1,12 +1,11 @@
 #include "push_swap.h"
 
 
-
 void	push(t_stack **from, t_stack **to)
 {
 	t_stack		*tmp_from;
 
-	if (!from || !*from || !to)
+	if (!from || !*from)
 		return ;
 	tmp_from = *from;
 	if (!*to)
