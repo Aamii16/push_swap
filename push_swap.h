@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:03 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/09 01:47:55 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/09 03:36:01 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	rotate(t_stack **stack);
 void	reverse_rotate(t_stack **stack);
 
 //operations
-void	do_rr(t_stack **from, t_stack **to, int indexF, int indexT);
-void	do_rrr(t_stack **from, t_stack **to, int indexF, int indexT);
-void	do_ra(t_stack **from, int indexF);
-void	do_rb(t_stack **to, int indexT);
-void	do_rra(t_stack **from, int indexF);
-void	do_rrb(t_stack **to, int indexT);
+void	rr(t_stack **from, t_stack **to, int indexF, int indexT);
+void	rrr(t_stack **from, t_stack **to, int indexF, int indexT);
+void	ra(t_stack **from, int indexF);
+void	rb(t_stack **to, int indexT);
+void	rra(t_stack **from, int indexF);
+void	rrb(t_stack **to, int indexT);
 
 //parsing utils
 int	check_duplicates(t_stack **stack);

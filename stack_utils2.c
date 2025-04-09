@@ -10,7 +10,9 @@ void	push(t_stack **from, t_stack **to)
 	tmp_from = *from;
 	if (!*to)
 	{
-		*to = tmp_from;
+		*to = *from;
+		printf("dddddddd  %d\n", (tmp_from)->data);
+		printf("dddddddd  %d\n", (*to)->data);
 		*from = (*from)->next;
 		(*to)->next = NULL;
 		return ;

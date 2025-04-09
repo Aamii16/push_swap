@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	do_rr(t_stack **from, t_stack **to, int indexF, int indexT)
+void	rr(t_stack **from, t_stack **to, int indexF, int indexT)
 {
 	while (indexF-- && (indexT)--)
 	{
@@ -20,7 +20,7 @@ void	do_rr(t_stack **from, t_stack **to, int indexF, int indexT)
 	}
 }
 
-void	do_rrr(t_stack **from, t_stack **to, int indexF, int indexT)
+void	rrr(t_stack **from, t_stack **to, int indexF, int indexT)
 {
 	indexF = stack_size(from) - indexF;
 	indexT = stack_size(to) - indexT;
@@ -42,7 +42,7 @@ void	do_rrr(t_stack **from, t_stack **to, int indexF, int indexT)
 	}
 }
 
-void	do_ra(t_stack **from, int indexF)
+void	ra(t_stack **from, int indexF)
 {
 	while (indexF--)
 	{
@@ -51,7 +51,7 @@ void	do_ra(t_stack **from, int indexF)
 	}
 }
 
-void	do_rb(t_stack **to, int indexT)
+void	rb(t_stack **to, int indexT)
 {
 	while ((indexT)--)
 	{
@@ -60,7 +60,7 @@ void	do_rb(t_stack **to, int indexT)
 	}
 }
 
-void	do_rra(t_stack **from, int indexF)
+void	rra(t_stack **from, int indexF)
 {
 	indexF = stack_size(from) - indexF;
 	while (indexF--)
@@ -70,7 +70,7 @@ void	do_rra(t_stack **from, int indexF)
 	}
 }
 
-void	do_rrb(t_stack **to, int indexT)
+void	rrb(t_stack **to, int indexT)
 {
 	indexT = stack_size(to) - indexT;
 	while ((indexT)--)
