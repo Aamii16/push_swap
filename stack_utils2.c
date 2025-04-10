@@ -10,9 +10,7 @@ void	push(t_stack **from, t_stack **to)
 	tmp_from = *from;
 	if (!*to)
 	{
-		*to = *from;
-		printf("dddddddd  %d\n", (tmp_from)->data);
-		printf("dddddddd  %d\n", (*to)->data);
+		*to = tmp_from;
 		*from = (*from)->next;
 		(*to)->next = NULL;
 		return ;
@@ -55,5 +53,13 @@ void reverse_rotate(t_stack **stack)
 	}
 	prev->next = NULL;
 	tmp->next = *stack;
-	*stack = tmp;	
+	*stack = tmp;
+}
+void	swap(t_stack *prev, t_stack *curr)
+{
+	int	tmp;
+
+	tmp = prev->data;
+	prev->data = curr->data;
+	curr->data = tmp;
 }
