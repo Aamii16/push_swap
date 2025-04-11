@@ -99,12 +99,46 @@ int	get_max(t_stack **to)
 		{
 			max = curr->data;
 			index = i;
-			printf("max node at index %d is %d\n", index, max);
 		}
 		i++;
 		curr = curr->next;	
 	}
 	return (index);
+}
+int	get_min(t_stack **to)
+{
+	t_stack	*curr;
+	int		index;
+	int		min;
+	int		i;
+
+	if (!to || !*to)
+		return (-1);
+	curr = *to;
+	min = curr->data;
+	i = 0;
+	index = 0;
+	while (curr)
+	{
+		if (curr->data < min)
+		{
+			min = curr->data;
+			index = i;
+		}
+		i++;
+		curr = curr->next;	
+	}
+	return (index);
+}
+int	cost(t_stack **stack, int index)
+{
+	int	size;
+
+	size = stack_size(stack);
+	if (index > (size / 2))
+		return (size - index);
+	else
+		return (index);
 }
 
 int	find_target_index(t_stack **to, int val)
@@ -134,17 +168,6 @@ int	find_target_index(t_stack **to, int val)
 	return (index);
 }
 
-int	cost(t_stack **stack, int index)
-{
-	int	size;
-
-	size = stack_size(stack);
-	if (index > (size / 2))
-		return (size - index);
-	else
-		return (index);
-}
-
 int	find_node_index(t_stack **from, t_stack **to, int *indexT)
 {
 	t_stack	*tmp;
@@ -160,7 +183,6 @@ int	find_node_index(t_stack **from, t_stack **to, int *indexT)
 	while (tmp)
 	{
 		tmp_index = find_target_index(to, tmp->data);
-		//indexT value is changed in each call of find_target_cost so the best target index is lost 
 		if (min_cost > cost(from, i) + cost(to, tmp_index) + 1)
 		{
 			min_cost = cost(from, i) + cost(to, tmp_index) + 1;
@@ -184,21 +206,17 @@ void	moves(t_stack **from, t_stack **to)
 	sizeF = stack_size(from);
 	sizeT = stack_size(to);
 	indexF = find_node_index(from , to, &indexT);
-	printf("from ");print_node_at_index(from, indexF);
-	printf("to ");print_node_at_index(to, indexT);
-	if (indexF && indexT && indexF > (sizeF / 2)
-		&& indexT > (sizeT / 2))
+	if ((indexF > (sizeF / 2)) && (indexT > (sizeT / 2)))
 		do_rrr(from, to, &indexF, &indexT);
-	else if (indexF && indexT && indexF <= (sizeF / 2)
-		&& indexT <= (sizeT / 2))
+	else if ((indexF <= (sizeF / 2)) && ((indexT <= (sizeT / 2))))
 		do_rr(from, to, &indexF, &indexT);
-	if (indexF && indexF <= (sizeF / 2))
+	if (indexF <= (sizeF / 2))
 		do_ra(from, &indexF);
-	else if (indexF && indexF > (sizeF / 2))
+	else if (indexF > (sizeF / 2))
 		do_rra(from, &indexF);
 	if (indexT <= (sizeT / 2))
 		do_rb(to, &indexT);
-	else if (indexT && indexT > (sizeT / 2))
+	else if (indexT > (sizeT / 2))
 		do_rrb(to, &indexT);
 	
 	push(from, to);

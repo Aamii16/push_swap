@@ -65,9 +65,27 @@ int	stack_size(t_stack	**stack)
 	while (tmp)
 	{
 		size++;
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 	return (size);	
+}
+
+int	is_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] < '0' || str[i] > '9')
+		return (0);
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+		i++;
+	if (str[i] != '\0')
+		return(0);
+	return (1);
 }
 
 void	init_stack(t_stack **stack, char *str)
@@ -76,10 +94,20 @@ void	init_stack(t_stack **stack, char *str)
 	int		i;
 	int		data;
 
-	i = 0;
+	i = -1;
 	if (!str || !stack)
 		return ;
 	splited = ft_split(str, ' ');
+	while (splited[++i])
+	{
+		if (!is_number(splited[i]))
+		{
+			free_pt(splited, i);
+			put_error("Error\n");
+			exit(1);
+		}
+	}
+	i = 0;
 	while (splited[i])
 	{
 		data = ft_atoi(splited[i]);

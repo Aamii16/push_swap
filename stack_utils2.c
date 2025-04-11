@@ -5,7 +5,7 @@ void	push(t_stack **from, t_stack **to)
 {
 	t_stack		*tmp_from;
 
-	if (!from || !*from)
+	if (!from || !*from || !to)
 		return ;
 	tmp_from = *from;
 	if (!*to)
