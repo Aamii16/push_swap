@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -g# -Werror -g
+CFLAGS = -Wall -Wextra -g #-Werror
 BIN_DIR=bin
 SRCS := $(wildcard *.c)
 OBJS := $(patsubst %.c, $(BIN_DIR)/%.o, $(SRCS))
@@ -28,7 +28,10 @@ clean:
 fclean: clean
 	rm -rf $(NAME)
 
-re: fclean $(NAME)
+re:
+	rm -rf $(BIN_DIR)
+	rm -rf $(NAME)
+	make all
 
 .PHONY:
 	all clean fclean re

@@ -63,3 +63,17 @@ void	swap(t_stack *prev, t_stack *curr)
 	prev->data = curr->data;
 	curr->data = tmp;
 }
+
+t_stack	*last_node(t_stack *stack)
+{
+	t_stack	*tmp;
+
+	tmp = stack;
+	while (tmp)
+	{
+		if (!tmp->next)
+			break ;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}

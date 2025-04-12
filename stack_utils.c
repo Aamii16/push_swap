@@ -70,24 +70,6 @@ int	stack_size(t_stack	**stack)
 	return (size);	
 }
 
-int	is_number(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (str[i] < '0' || str[i] > '9')
-		return (0);
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-		i++;
-	if (str[i] != '\0')
-		return(0);
-	return (1);
-}
-
 void	init_stack(t_stack **stack, char *str)
 {
 	char	**splited;

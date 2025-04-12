@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:19 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/05 16:29:37 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/12 01:45:50 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	put_error(char *str)
 		write(2, str, 1);
 		str++;
 	}
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
