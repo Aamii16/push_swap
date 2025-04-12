@@ -1,5 +1,27 @@
 #include "push_swap.h"
 
+static void print_node_at_index(t_stack **stack, int index)
+{	
+	t_stack	*tmp;
+	int		i;
+
+	if (!stack || !*stack)
+		return ;
+	tmp = *stack;
+	i = 0;
+	while (tmp)
+	{
+		if (i == index)
+			break ;
+		i++;
+		tmp = tmp->next;	
+	}
+	//if (tmp)
+	//	//printf("node at index %d is %d\n", index, tmp->data);
+	//else
+		//printf("index out of range\n");
+}
+
 static int	index_of_b_target(t_stack **b, int val)
 {
 	t_stack	*curr;
@@ -58,7 +80,9 @@ void	push_to_b(t_stack **a, t_stack **b)
 	sizeA = stack_size(a);
 	sizeB = stack_size(b);
 	indexA = find_node_index(a , b, &indexB);
-	printf("selected: %d from A to %d in B\n", indexA, indexB);
+	////printf("selected: %d from A to %d in B\n", indexA, indexB);
+	////printf("AA ");print_node_at_index(a, indexA);
+	////printf("BB ");print_node_at_index(b, indexB);
 	if ((indexA > (sizeA / 2)) && (indexB > (sizeB / 2)))
 		do_rrr(a, b, &indexA, &indexB);
 	else if ((indexA <= (sizeA / 2)) && ((indexB <= (sizeB / 2))))
@@ -76,40 +100,43 @@ void	push_to_b(t_stack **a, t_stack **b)
 	write(1, "pb\n", 3);
 }
 
-int		index_of_a_target(t_stack **to, int val)
+int		index_of_a_target(t_stack **a, int val)
 {
 	t_stack	*tmp;
 	long	min_diff;
 	int		index;
-	int		max;
+	int		found;
 	int		i;
 
-	tmp = *to;
-	max  = get_max(to);
+	tmp = *a;
 	i = 0;
 	index = 0;
-	min_diff = __LONG_MAX__ - max;
+	found = tmp->data;
+	min_diff = __LONG_MAX__ - 1;
 	while (tmp)
 	{
-		if (min_diff > ft_abs(val - tmp->data))
+		if (min_diff > ft_abs(val - tmp->data) && tmp->data > val)
 		{
 			min_diff = ft_abs(val - tmp->data);
 			index = i;
+			found = tmp->data;
 		}
 		tmp = tmp->next;
 		i++;
 	}
+	if (found < val)
+		return(get_min(a));
 	return (index);
 }
 
 void	push_to_a(t_stack **b, t_stack **a)
 {
 	int		indexA;
-	int		sizeT;
+	int		sizeA;
 
-	sizeT = stack_size(a);
+	sizeA = stack_size(a);
 	indexA = index_of_a_target(a, (*b)->data);
-	if (indexA < (sizeT / 2))
+	if (indexA < (sizeA / 2))
 		do_ra(a, &indexA);
 	else
 		do_rra(a, &indexA);

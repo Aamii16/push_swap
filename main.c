@@ -10,9 +10,10 @@ void	print_stack(t_stack **stack)
 	tmp = *stack;
 	while (tmp)
 	{
-		//printf("%d\n", tmp->data);
+		//printf("%d->", tmp->data);
 		tmp = tmp->next;	
 	}
+	//printf("\n");
 }
 
 void print_node_at_index(t_stack **stack, int index)
@@ -32,9 +33,9 @@ void print_node_at_index(t_stack **stack, int index)
 		tmp = tmp->next;	
 	}
 	//if (tmp)
-	//	printf("node at index %d is %d\n", index, tmp->data);
+		//printf("node at index %d is %d\n", index, tmp->data);
 	//else
-	//	printf("index out of range\n");
+		//printf("index out of range\n");
 }
 
 void	sort(t_stack **stack_a)
