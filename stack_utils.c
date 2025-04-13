@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:32:56 by amzahir           #+#    #+#             */
-/*   Updated: 2025/04/13 00:43:34 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 01:59:08 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,13 @@ int	init_stack(t_stack **stack, char *str)
 	if (!str || !stack)
 		return (0);
 	splited = ft_split(str, ' ');
+	if (!splited || !*splited)
+		return (free(splited), 0);
 	while (splited && splited[++i])
 	{
 		if (!is_number(splited[i]) || ft_atol(splited[i]) > INT_MAX
 			|| ft_atol(splited[i]) < INT_MIN)
-			return (free_pt(splited, i), 0);
+			return (free_split(splited), 0);
 	}
 	i = -1;
 	while (splited && splited[++i])
@@ -103,7 +105,7 @@ int	init_stack(t_stack **stack, char *str)
 		data = (int)ft_atol(splited[i]);
 		add_node(stack, new_node(data));
 	}
+	free_split(splited);
 	check_duplicates(stack);
-	free_pt(splited, i);
 	return (1);
 }

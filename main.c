@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:34:25 by amzahir           #+#    #+#             */
-/*   Updated: 2025/04/13 00:38:09 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 02:25:35 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sort(t_stack **stack_a)
 	stack_b = NULL;
 	if (stack_size(stack_a) > 3)
 		pb(stack_a, &stack_b);
-	if (stack_size(stack_a) > 4)
+	if (stack_size(stack_a) > 3)
 		pb(stack_a, &stack_b);
 	while (stack_size(stack_a) > 3)
 		push_to_b(stack_a, &stack_b);
@@ -72,7 +72,7 @@ int	main(int ac, char **av)
 	{
 		if (!init_stack(&stack_a, av[i]))
 		{
-			put_error("Error init\n");
+			put_error("Error\n");
 			free_stack(&stack_a);
 			return (1);
 		}

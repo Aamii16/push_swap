@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:19 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/13 00:59:36 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 01:50:45 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ long	ft_atol(char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
+	{
 		num = num * 10 + (str[i++] - 48);
+		if ((num * sign) > INT_MAX || (num * sign) < INT_MIN)
+			break ;
+	}
 	return (num * sign);
 }

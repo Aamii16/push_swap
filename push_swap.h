@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:03 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/13 01:03:59 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 01:51:07 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ long	ft_atol(char *str);
 int		ft_abs(int n);
 void	put_error(char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-void	free_pt(char **split, int e);
+void	free_split(char **split);
 char	**ft_split(char const *s, char c);
 
 //parsing utils

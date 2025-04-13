@@ -6,11 +6,28 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 20:14:18 by amzahir           #+#    #+#             */
-/*   Updated: 2025/04/13 01:00:25 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 02:07:24 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	free_split(char **split)
+{
+	int	e;
+
+	e = 0;
+	if (!split)
+		return ;
+	while (split[e])
+		e++;
+	while (e >= 0)
+	{
+		free(split[e]);
+		e--;
+	}
+	free(split);
+}
 
 int	is_number(char *str)
 {
