@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:34:03 by meowy             #+#    #+#             */
-/*   Updated: 2025/04/12 04:36:32 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 01:03:59 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,33 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct s_stack
 {
-    int				data;
-    struct s_stack	*next;
-}       t_stack;
+	int				data;
+	struct s_stack	*next;
+}		t_stack;
 //string utils
 
-int 	ft_atoi(char *str);
+long	ft_atol(char *str);
 int		ft_abs(int n);
 void	put_error(char *str);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 void	free_pt(char **split, int e);
-char    **ft_split(char const *s, char c);
+char	**ft_split(char const *s, char c);
 
 //parsing utils
 int		check_duplicates(t_stack **stack);
 int		is_number(char *str);
+int		sorted(t_stack **stack);
 
 //stack utils
-t_stack *new_node(int data);
+t_stack	*new_node(int data);
 void	add_node(t_stack **stack, t_stack *node);
 void	free_stack(t_stack **stack);
 int		stack_size(t_stack **stack);
-void	init_stack(t_stack **stack, char *str);
+int		init_stack(t_stack **stack, char *str);
 t_stack	*last_node(t_stack *stack);
 
 void	push(t_stack **stack1, t_stack **stack2);
@@ -65,6 +67,7 @@ void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	pb(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
+void	sa(t_stack **a);
 
 //sorting utils
 int		get_max(t_stack **to);

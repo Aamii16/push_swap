@@ -1,5 +1,16 @@
-#include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 00:32:45 by amzahir           #+#    #+#             */
+/*   Updated: 2025/04/13 00:46:27 by amzahir          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "push_swap.h"
 
 void	push(t_stack **from, t_stack **to)
 {
@@ -26,7 +37,7 @@ void	rotate(t_stack **stack)
 	t_stack	*tmp;
 
 	if (!stack)
-		return;
+		return ;
 	tmp = *stack;
 	head = *stack;
 	while (tmp->next)
@@ -36,14 +47,14 @@ void	rotate(t_stack **stack)
 	head->next = NULL;
 }
 
-void reverse_rotate(t_stack **stack)
+void	reverse_rotate(t_stack **stack)
 {
 	t_stack	*prev;
 	t_stack	*tmp;
 	t_stack	*head;
 
 	if (!stack || !*stack || !(*stack)->next)
-		return;
+		return ;
 	head = *stack;
 	tmp = *stack;
 	while (tmp->next)
@@ -55,6 +66,7 @@ void reverse_rotate(t_stack **stack)
 	tmp->next = *stack;
 	*stack = tmp;
 }
+
 void	swap(t_stack *prev, t_stack *curr)
 {
 	int	tmp;

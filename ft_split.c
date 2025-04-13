@@ -6,7 +6,7 @@
 /*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 03:51:36 by amzahir           #+#    #+#             */
-/*   Updated: 2025/04/05 18:13:03 by amzahir          ###   ########.fr       */
+/*   Updated: 2025/04/13 00:05:48 by amzahir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	wordsize(const char *s, char c, size_t *i)
 
 void	free_pt(char **split, int e)
 {
+	if (!split)
+		return ;
 	while (e >= 0)
 	{
 		free(split[e]);

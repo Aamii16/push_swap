@@ -1,5 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/13 00:33:58 by amzahir           #+#    #+#              #
+#    Updated: 2025/04/13 00:34:10 by amzahir          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = cc
-CFLAGS = -Wall -Wextra -g #-Werror
+CFLAGS = -Wall -Wextra -Werror
 BIN_DIR=bin
 SRCS := $(wildcard *.c)
 OBJS := $(patsubst %.c, $(BIN_DIR)/%.o, $(SRCS))
@@ -9,9 +21,6 @@ NAME = push_swap
 DEP = push_swap.h
 
 all : $(NAME)
-
-debug:CFLAGS+=-g
-debug: re
 
 $(BIN_DIR)/%.o: %.c $(DEP) | $(BIN_DIR)
 	$(CC) -c $(CFLAGS) $< -o $@

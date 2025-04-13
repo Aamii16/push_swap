@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 00:32:56 by amzahir           #+#    #+#             */
+/*   Updated: 2025/04/13 00:43:34 by amzahir          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 t_stack	*new_node(int data)
 {
 	t_stack	*stack;
-	
+
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
@@ -24,7 +35,7 @@ void	add_node(t_stack **stack, t_stack *node)
 		*stack = node;
 		return ;
 	}
-	tmp = *stack;	
+	tmp = *stack;
 	while (tmp)
 	{
 		if (!tmp->next)
@@ -39,7 +50,7 @@ void	add_node(t_stack **stack, t_stack *node)
 void	free_stack(t_stack **stack)
 {
 	t_stack	*curr;
-	t_stack *pre;
+	t_stack	*pre;
 
 	if (!stack)
 		return ;
@@ -48,7 +59,7 @@ void	free_stack(t_stack **stack)
 	{
 		pre = curr;
 		curr = curr->next;
-		free (pre);	
+		free(pre);
 	}
 	*stack = NULL;
 }
@@ -67,10 +78,10 @@ int	stack_size(t_stack	**stack)
 		size++;
 		tmp = tmp->next;
 	}
-	return (size);	
+	return (size);
 }
 
-void	init_stack(t_stack **stack, char *str)
+int	init_stack(t_stack **stack, char *str)
 {
 	char	**splited;
 	int		i;
@@ -78,23 +89,21 @@ void	init_stack(t_stack **stack, char *str)
 
 	i = -1;
 	if (!str || !stack)
-		return ;
+		return (0);
 	splited = ft_split(str, ' ');
-	while (splited[++i])
+	while (splited && splited[++i])
 	{
-		if (!is_number(splited[i]))
-		{
-			free_pt(splited, i);
-			put_error("Error\n");
-			exit(1);
-		}
+		if (!is_number(splited[i]) || ft_atol(splited[i]) > INT_MAX
+			|| ft_atol(splited[i]) < INT_MIN)
+			return (free_pt(splited, i), 0);
 	}
-	i = 0;
-	while (splited[i])
+	i = -1;
+	while (splited && splited[++i])
 	{
-		data = ft_atoi(splited[i]);
+		data = (int)ft_atol(splited[i]);
 		add_node(stack, new_node(data));
-		i++;
 	}
+	check_duplicates(stack);
 	free_pt(splited, i);
+	return (1);
 }

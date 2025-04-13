@@ -1,47 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 00:34:25 by amzahir           #+#    #+#             */
+/*   Updated: 2025/04/13 00:38:09 by amzahir          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_stack **stack)
-{
-	t_stack	*tmp;
-
-	if (!stack || !*stack)
-		return ;
-	tmp = *stack;
-	while (tmp)
-	{
-		//printf("%d->", tmp->data);
-		tmp = tmp->next;	
-	}
-	//printf("\n");
-}
-
-void print_node_at_index(t_stack **stack, int index)
-{
-	t_stack	*tmp;
-	int		i;
-
-	if (!stack || !*stack)
-		return ;
-	tmp = *stack;
-	i = 0;
-	while (tmp)
-	{
-		if (i == index)
-			break ;
-		i++;
-		tmp = tmp->next;	
-	}
-	//if (tmp)
-		//printf("node at index %d is %d\n", index, tmp->data);
-	//else
-		//printf("index out of range\n");
-}
 
 void	sort(t_stack **stack_a)
 {
 	t_stack	*stack_b;
-	int	min;
+	int		min;
 
 	stack_b = NULL;
 	if (stack_size(stack_a) > 3)
@@ -66,28 +40,46 @@ void	sort(t_stack **stack_a)
 	}
 }
 
-int main(int ac, char **av)
+void	check_size(t_stack **stack_a)
+{
+	int		size;
+
+	size = stack_size(stack_a);
+	if (size == 2)
+	{
+		if ((*stack_a)->data > (*stack_a)->next->data)
+		{
+			swap(*stack_a, (*stack_a)->next);
+			write(1, "sa\n", 3);
+		}
+	}
+	else if (size == 3)
+		sort_three(stack_a);
+	else if (size > 3)
+		sort(stack_a);
+}
+
+int	main(int ac, char **av)
 {
 	int		i;
-	int		sizeA;
-	t_stack *stack_a;
-	
+	t_stack	*stack_a;
+
 	stack_a = NULL;
 	i = 1;
 	if (ac == 1)
 		return (0);
-	while (i <= ac)
+	while (i < ac)
 	{
-		init_stack(&stack_a, av[i]);
+		if (!init_stack(&stack_a, av[i]))
+		{
+			put_error("Error init\n");
+			free_stack(&stack_a);
+			return (1);
+		}
 		i++;
 	}
-	//check_duplicates(stack_a); FIX THIS NIGGA
-	sizeA = stack_size(&stack_a);
-	if (sizeA == 3)
-		sort_three(&stack_a);
-	else if (sizeA > 3)
-		sort(&stack_a);
-	//print_stack(&stack_b);
-	//print_stack(stack_a);
+	if (!sorted(&stack_a))
+		check_size(&stack_a);
+	free_stack(&stack_a);
 	return (0);
 }

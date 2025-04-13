@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sorting_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amzahir <amzahir@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 00:33:03 by amzahir           #+#    #+#             */
+/*   Updated: 2025/04/13 01:03:29 by amzahir          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	cost(t_stack **stack, int index)
@@ -56,39 +68,34 @@ int	get_min(t_stack **to)
 			index = i;
 		}
 		i++;
-		curr = curr->next;	
+		curr = curr->next;
 	}
 	return (index);
 }
 
 void	sort_three(t_stack **a)
 {
-	int first;
-	int second;
-	int third;
+	int	first;
+	int	second;
+	int	third;
 
 	first = (*a)->data;
 	second = (*a)->next->data;
-	third = (*a)->next->next->data;	
+	third = (*a)->next->next->data;
 	if (first > second && first > third && second > third)
 	{
 		ra(a);
-		swap(*a, (*a)->next);
-		write(1, "sa\n", 3);
+		sa(a);
 	}
 	else if (first > second && first > third && second < third)
 		ra(a);
 	else if (first < second && first > third)
 		rra(a);
 	else if (first > second && first < third)
-	{
-		swap(*a, (*a)->next);
-		write(1, "sa\n", 3);
-	}
+		sa(a);
 	else if (first < second && first < third && second > third)
 	{
 		rra(a);
-		swap(*a, (*a)->next);
-		write(1, "sa\n", 3);
+		sa(a);
 	}
 }
